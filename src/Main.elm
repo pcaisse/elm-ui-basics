@@ -6,8 +6,12 @@ import Element.Border as Border
 import Element.Font as Font
 
 
-dummyText =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+-- text
+-- Element.el takes a single child element
+-- padding
+-- spacing
+-- Element.rows
+-- Element.cols
 
 
 main =
@@ -25,7 +29,21 @@ header =
         , padding 30
         , width fill
         ]
-        (Element.el [ centerX ] (text "elm-ui basics"))
+        (Element.el [ centerX ]
+            (Element.column
+                []
+                [ Element.link []
+                    { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/1.1.0/"
+                    , label = text "elm-ui"
+                    }
+                , el [ Font.color (rgb255 128 128 128) ] (text "a whirlwind tour")
+                ]
+            )
+        )
+
+
+
+-- TODO: Add subheading "a whirlwind tour of the Element module"
 
 
 body =
@@ -35,19 +53,79 @@ body =
         , height fill
         , padding 100
         ]
-        content
+        (Element.column
+            [ width fill ]
+            [ -- text
+              content
+                (Element.row []
+                    [ text "1. "
+                    , Element.el [ padding 5, Background.color (rgb255 220 220 220) ] (text "text")
+                    , text " is used to display text"
+                    ]
+                )
+                "Element.text \"hi\""
+                (text "hi")
+            , horizontalRule
+
+            -- el
+            , content
+                (Element.row []
+                    [ text "2. "
+                    , Element.el [ padding 5, Background.color (rgb255 220 220 220) ] (text "el")
+                    , text " is an element that takes attributes and has a single child"
+                    ]
+                )
+                "Element.el [ Background.color (rgb255 255 255 0) ] (Element.text \"highlight me\")"
+                (el [ Background.color (rgb255 255 255 0) ] (Element.text "highlight me"))
+            ]
+        )
 
 
-content =
+horizontalRule =
     Element.el
-        [ Border.color (rgb255 128 128 128)
-        , Border.width 5
-        , padding 20
-        , Border.rounded 5
-        , Border.glow (rgb255 100 100 100) 3
-        , centerX
+        [ Element.paddingEach
+            { top = 100
+            , right = 0
+            , bottom = 80
+            , left = 0
+            }
+        , width fill
         ]
-        (paragraph [] [ text dummyText ])
+    <|
+        Element.el
+            [ width fill
+            , Border.color (rgb255 128 128 128)
+            , Border.dashed
+            , Border.width 1
+            ]
+            Element.none
+
+
+content description codeTextString codeText =
+    Element.column [ centerX ]
+        [ Element.el [ padding 20 ] description
+        , Element.row [ centerX ] [ code codeTextString, display codeText ]
+        ]
+
+
+code codeTextString =
+    Element.el
+        [ Background.color (rgb255 128 128 128)
+        , Font.color (rgb255 255 255 255)
+        , Font.family [ Font.typeface "Monospace" ]
+        , padding 15
+        , width fill
+        ]
+        (paragraph [] [ text <| codeTextString ])
+
+
+display codeText =
+    Element.el
+        [ padding 15
+        , width fill
+        ]
+    <|
+        codeText
 
 
 footer =
@@ -56,4 +134,9 @@ footer =
         , width fill
         , padding 30
         ]
-        Element.none
+    <|
+        Element.row
+            [ width fill, Font.color (rgb255 255 255 255) ]
+            [ Element.el [ alignLeft ] (text "Peter Caisse")
+            , Element.el [ alignRight ] (text "Lightning Talk 2018")
+            ]
