@@ -4,17 +4,7 @@ import Element exposing (Element, alignBottom, alignLeft, alignRight, alignTop, 
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
-
-
--- text
--- Element.el takes a single child element
--- padding
--- Element.rows
--- Element.cols
--- spacing
--- centering
--- alignment
--- width & height
+import Html.Attributes
 
 
 main =
@@ -65,7 +55,7 @@ body =
                         , text " is used to display text"
                         ]
                     )
-                    [ text "text \"hi\"" ]
+                    "text \"hi\""
                     (text "hi")
 
                 -- el
@@ -76,11 +66,13 @@ body =
                         , text " is an element that takes attributes and has a single child"
                         ]
                     )
-                    [ paragraph [] [ text "el" ]
-                    , paragraph [] [ text "[ Background.color (rgb255 255 255 0) ]" ]
-                    , paragraph [] [ text "(text \"highlight me\")" ]
-                    ]
-                    (el [ Background.color (rgb255 255 255 0) ] (Element.text "highlight me"))
+                    "el\n\t[ Background.color\n\t\t(rgb255 255 255 0)\n\t]\n\t(text \"highlight me\")"
+                    (el
+                        [ Background.color
+                            (rgb255 255 255 0)
+                        ]
+                        (text "highlight me")
+                    )
 
                 -- padding
                 , content
@@ -90,20 +82,24 @@ body =
                         , text " adds space inside an element"
                         ]
                     )
-                    [ paragraph [] [ text "el [ padding 10, Background.color (rgb255 255 255 0) ] (text \"highlight me\")" ]
-                    ]
-                    (el [ padding 10, Background.color (rgb255 255 255 0) ] (Element.text "highlight me"))
+                    "el\n\t[ padding 10\n\t, Background.color\n\t\t(rgb255 255 255 0)\n\t]\n\t(text \"highlight me\")"
+                    (el
+                        [ padding 10
+                        , Background.color
+                            (rgb255 255 255 0)
+                        ]
+                        (text "highlight me")
+                    )
 
                 -- row
                 , content
                     "row"
-                    (Element.row []
+                    (row []
                         [ inlineCode "row"
                         , text " groups elements together in a row"
                         ]
                     )
-                    [ paragraph [] [ text "row [] [ el [ Border.width 1 ] (text \"A\"), el [ Border.width 1 ] (text \"B\"), el [ Border.width 1 ] (text \"C\")]" ]
-                    ]
+                    "row []\n\t[ el [ Border.width 1 ] (text \"A\")\n\t, el [ Border.width 1] (text \"B\")\n\t, el [ Border.width 1 ] (text \"C\")\n\t]"
                     (row []
                         [ el [ Border.width 1 ] (text "A")
                         , el [ Border.width 1 ] (text "B")
@@ -119,8 +115,7 @@ body =
                         , text " adds space between child elements"
                         ]
                     )
-                    [ paragraph [] [ text "row [ spacing 20 ] [ el [ Border.width 1 ] (text \"A\"), el [ Border.width 1 ] (text \"B\"), el [ Border.width 1 ] (text \"C\")]" ]
-                    ]
+                    "row [ spacing 20 ]\n\t[ el [ Border.width 1 ] (text \"A\")\n\t, el [ Border.width 1] (text \"B\")\n\t, el [ Border.width 1 ] (text \"C\")\n\t]"
                     (row [ spacing 20 ]
                         [ el [ Border.width 1 ] (text "A")
                         , el [ Border.width 1 ] (text "B")
@@ -136,8 +131,7 @@ body =
                         , text " groups elements together in a column"
                         ]
                     )
-                    [ paragraph [] [ text "column [ spacing 20 ] [ el [ Border.width 1 ] (text \"A\"), el [ Border.width 1 ] (text \"B\"), el [ Border.width 1 ] (text \"C\")]" ]
-                    ]
+                    "column [ spacing 20 ]\n\t[ el [ Border.width 1 ] (text \"A\")\n\t, el [ Border.width 1] (text \"B\")\n\t, el [ Border.width 1 ] (text \"C\")\n\t]"
                     (column [ spacing 20 ]
                         [ el [ Border.width 1 ] (text "A")
                         , el [ Border.width 1 ] (text "B")
@@ -154,9 +148,12 @@ body =
                         , inlineCode "height"
                         ]
                     )
-                    [ paragraph [] [ text "el [ Border.width 1, width (px 200), height (px 200) ] (text \"200x200\")" ]
-                    ]
-                    (el [ Border.width 1, width (px 200), height (px 200) ]
+                    "el\n\t[ Border.width 1\n\t, width (px 200)\n\t, height (px 200)\n\t]\n\t(text \"200x200\")"
+                    (el
+                        [ Border.width 1
+                        , width (px 200)
+                        , height (px 200)
+                        ]
                         (text "200x200")
                     )
 
@@ -170,10 +167,18 @@ body =
                         , text " center horizontally and vertically"
                         ]
                     )
-                    [ paragraph [] [ text "el [ Border.width 1, width (px 200), height (px 200) ] (el [ centerX, centerY ] (text \"middle\"))" ]
-                    ]
-                    (el [ Border.width 1, width (px 200), height (px 200) ] <|
-                        el [ centerX, centerY ] (text "middle")
+                    "el\n\t[ Border.width 1\n\t, width (px 200)\n\t, height (px 200)\n\t]\n\t(el\n\t\t[ centerX\n\t\t, centerY\n\t\t]\n\t\t(text \"middle\")\n\t)"
+                    (el
+                        [ Border.width 1
+                        , width (px 200)
+                        , height (px 200)
+                        ]
+                        (el
+                            [ centerX
+                            , centerY
+                            ]
+                            (text "middle")
+                        )
                     )
 
                 -- alignment
@@ -189,11 +194,22 @@ body =
                         , inlineCode "alignBottom"
                         ]
                     )
-                    [ paragraph [] [ text "row [ Border.width 1, width (px 200), height (px 200) ] [ el [ alignLeft, alignTop ] (text \"top-left\"), el [ alignRight, alignBottom ] (text \"bottom-right\") ]" ]
-                    ]
-                    (row [ Border.width 1, width (px 200), height (px 200) ]
-                        [ el [ alignLeft, alignTop ] (text "top-left")
-                        , el [ alignRight, alignBottom ] (text "bottom-right")
+                    "row\n\t[ Border.width 1\n\t, width (px 200)\n\t, height (px 200)\n\t]\n\t[ el\n\t\t[ alignLeft\n\t\t, alignTop\n\t\t]\n\t\t(text \"top-left\")\n\t, el\n\t\t[ alignRight\n\t\t, alignBottom\n\t\t]\n\t\t(text \"bottom-right\")\n\t]"
+                    (row
+                        [ Border.width 1
+                        , width (px 200)
+                        , height (px 200)
+                        ]
+                        [ el
+                            [ alignLeft
+                            , alignTop
+                            ]
+                            (text "top-left")
+                        , el
+                            [ alignRight
+                            , alignBottom
+                            ]
+                            (text "bottom-right")
                         ]
                     )
                 ]
@@ -231,13 +247,13 @@ inlineCode codeText =
 
 content label description codeText code =
     Element.row [ width fill ]
-        [ el
+        [ paragraph
             [ width (fillPortion 1)
             , Font.size 32
             , padding 20
             , Font.family [ Font.typeface "Monospace" ]
             ]
-            (text label)
+            [ text label ]
         , Element.column [ width (fillPortion 4) ]
             [ Element.el [ padding 20 ] description
             , Element.row [] [ codeBlock codeText, display code ]
@@ -251,9 +267,11 @@ codeBlock codeText =
         , Font.color (rgb255 255 255 255)
         , Font.family [ Font.typeface "Monospace" ]
         , padding 15
-        , width (px 300)
+        , width (px 450)
+        , Html.Attributes.style "whitespace" "pre" |> Element.htmlAttribute
+        , Html.Attributes.style "tab-size" "2" |> Element.htmlAttribute
         ]
-        (paragraph [] codeText)
+        (text codeText)
 
 
 display code =
