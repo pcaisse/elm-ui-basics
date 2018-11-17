@@ -47,7 +47,19 @@ body =
          <|
             List.intersperse
                 horizontalRule
-                [ -- text
+                [ column [ spacing 30 ]
+                    [ paragraph []
+                        [ link
+                            [ Font.color (rgb255 0 0 255)
+                            ]
+                            { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/1.1.0/"
+                            , label = text "elm-ui"
+                            }
+                        , text " is a reimagining of design primitives."
+                        ]
+                    , paragraph [] [ text "In the same way that Elm abstracts away from Javascript, starting with something better and targeting Javascipt, elm-ui starts with something better and targets HTML & CSS. This page, written using elm-ui, gives you a taste of how to do layouts and styling to show you how easy and fun it can be!" ]
+                    ]
+                , -- text
                   content
                     "text"
                     (row []
@@ -298,6 +310,13 @@ footer =
                     [ Font.color (rgb255 255 255 255)
                     ]
                     { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/1.1.0/"
-                    , label = text "Read the docs!"
+                    , label = text "Read the docs "
+                    }
+                , text " or "
+                , link
+                    [ Font.color (rgb255 255 255 255)
+                    ]
+                    { url = "https://github.com/pcaisse/elm-ui-basics"
+                    , label = text "see how this page was made using elm-ui!"
                     }
                 ]
