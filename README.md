@@ -11,3 +11,7 @@ elm make src/Main.elm --output=elm.js
 ```
 
 from the root of this project and view `index.html` in a browser.
+
+## Live Demo
+
+See a live demo [here](https://awesome-allen-bf02bd.netlify.com/).
