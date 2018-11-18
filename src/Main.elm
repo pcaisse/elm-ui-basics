@@ -55,9 +55,9 @@ body =
                             { url = "https://package.elm-lang.org/packages/mdgriffith/elm-ui/1.1.0/"
                             , label = text "elm-ui"
                             }
-                        , text " is a reimagining of design primitives."
+                        , text " is a reimagining of design primitives in Elm."
                         ]
-                    , paragraph [] [ text "In the same way that Elm abstracts away from Javascript, starting with something better and targeting Javascipt, elm-ui starts with something better and targets HTML & CSS. This page, written using elm-ui, gives you a taste of how to do layouts and styling to show you how easy and fun it can be!" ]
+                    , paragraph [] [ text "In the same way that Elm abstracts away from Javascript by starting with something better and targeting Javascript, elm-ui starts with something better and targets HTML & CSS. This page, written using elm-ui, gives you a taste of how to do layouts and styling to show you how easy and fun it can be!" ]
                     ]
                 , -- text
                   content
